@@ -104,6 +104,16 @@
             {{cdash.build.compilerversion}}
           </td>
         </tr>
+
+        <tr>
+          <td align="right">
+            <b>CDash.length:</b>
+          </td>
+          <td>
+            {{cdash.tests.length}}
+          </td>
+        </tr> 
+
       </table>
 
       <!-- Filters -->
@@ -128,7 +138,6 @@
         </h3>
       </div>
 
-      <div ng-if="cdash.tests.length > 0">
         <!-- Hide a div for javascript to know if time status is on -->
         <div ng-if="cdash.project.showtesttime == 1" id="showtesttimediv" style="display:none"></div>
 
@@ -268,7 +277,6 @@
         <br/>
         <a href="{{cdash.csvlink}}">Download Table as CSV File</a>
         </div>
-      </div>
 
     <!-- FOOTER -->
     <br/>
