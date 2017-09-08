@@ -29,11 +29,11 @@ set_include_path(get_include_path() . PATH_SEPARATOR . $CDASH_ROOT_DIR);
 // Hostname of the database server or name of unix socket
 $CDASH_DB_HOST = 'localhost';
 // Login for database access
-$CDASH_DB_LOGIN = 'root';
+$CDASH_DB_LOGIN = 'cdash';
 // Port for the database (leave empty to use default)
-$CDASH_DB_PORT = '';
+$CDASH_DB_PORT = '3306';
 // Password for database access
-$CDASH_DB_PASS = '';
+$CDASH_DB_PASS = 'simple';
 // Name of the database
 $CDASH_DB_NAME = 'cdash';
 // Database type
@@ -48,7 +48,7 @@ $CDASH_SSL_CA = null;
 
 // Turn this variable ON when CDash has been installed
 // Prevents from running the install.php again
-$CDASH_PRODUCTION_MODE = false;
+$CDASH_PRODUCTION_MODE = true;
 $CDASH_TESTING_MODE = false;
 $CDASH_TESTING_RENAME_LOGS = false;
 
@@ -76,9 +76,9 @@ $CDASH_ASYNC_WORKERS = 1;
 $CDASH_MAININDEX_TITLE = 'CDash';
 $CDASH_MAININDEX_SUBTITLE = 'Projects';
 // Default from email
-$CDASH_EMAILADMIN = 'admin@cdash.org';
-$CDASH_EMAIL_FROM = 'admin@cdash.org';
-$CDASH_EMAIL_REPLY = 'noreply@cdash.org';
+$CDASH_EMAILADMIN = 'raphael.muenster@math.tu-dortmund.de';
+$CDASH_EMAIL_FROM = 'raphael.muenster@math.tu-dortmund.de';
+$CDASH_EMAIL_REPLY = 'raphael.muenster@math.tu-dortmund.de';
 // Hostname of the SMTP server or null to use the PHP mail() function.
 $CDASH_EMAIL_SMTP_HOST = null;
 // Port for the SMTP server.
