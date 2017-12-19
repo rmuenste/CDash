@@ -206,6 +206,14 @@ function handleFAS_visco(testCase) {
   div.appendChild(tbl);
 }
 
+//-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+// Here the 'main' part of the script begins
+// We try to get the AngularJS-controller in order to access the
+// notes from its scope.
+//
+// We then parse the note and generate HTML elements for each benchmark.
+//-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+ 
 var dom_el = document.querySelector('[ng-controller="ViewNotesController"]');
 console.log(dom_el);
 console.log('I got the controller');
