@@ -16,10 +16,9 @@ function myViewNotesController($scope, $rootScope, $http, $location, anchors, re
     $scope.myTables = [];
     for(var i=0; i < $scope.cdash.notes.length; i++) {
 
-        console.log($scope.cdash.notes[i]);
+        // console.log($scope.cdash.notes[i]);
         var myNote =  JSON.parse($scope.cdash.notes[i].text);
         if(myNote.style === 'Table') {
-          console.log("Adding new table");
           $scope.myTables.push(myNote);
         }
     }
