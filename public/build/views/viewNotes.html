@@ -7,56 +7,16 @@
   <link rel="shortcut icon" href="favicon.ico" />
   <link rel="stylesheet" type="text/css" ng-href="{{cssfile}}" />
   <link rel="stylesheet" href="css/bootstrap.min.css"/>
+  <link rel="stylesheet" href="css/viewnotes.css"/>
   <script src="js/CDash_2.3.0.min.js"></script>
+  <script src="js/controllers/myViewNotes.js"></script>
   <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
-  <style>
-  table, th, td {
-    border: 1px solid black;
-    padding: 4px;
-  }
-
-  /* Set the style for result_table class elements  */
-  .result_table {
-    background-color: #efefef;
-    padding: 3px;
-    text-align: center;
-    width: 300px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  /* This is used as header for the table  */
-  .mycoolheader {
-    background-color: #3652cf;
-    color: #ffffff;
-    font-weight: bold;
-    padding: 3px;
-    text-align: center;
-    width: 300px;
-  }
-
-  /* Set the table row style  */
-  .mycoolrow {
-    background-color: #ffffff;
-  }
-
-  /* The the margin for the element with matching <id> tag  */
-  #non_newtonian_fac {
-    margin: 25px;
-  }
-
-  /* The the margins for the element with matching <id> tag  */
-  #curve_chart {
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  </style>  <title>{{cdash.title || "CDash : View notes"}}</title>
+  <title>{{cdash.title || "CDash : View notes"}}</title>
 
 </head>
 
-<body bgcolor="#ffffff" ng-controller="ViewNotesController">
+<body bgcolor="#ffffff" ng-controller="myViewNotesController">
   <div ng-if="cdash.requirelogin == 1" ng-include="'login.php'"></div>
 
   <ng-include ng-if="cdash.requirelogin != 1" src="cdash.header || 'views/partials/header.html'"></ng-include>
@@ -98,29 +58,22 @@
             <br/>
             <br/>
 
-            <div ng-repeat="note in cdash.notes">
+            <!-- Tables -->
+            <div ng-repeat="note in myTables">
               <div class="title-divider"  id="note{{$index}}">
-                <b>{{note.time}} -- {{note.name}}</b>
-              </div>
-              <div>
+                <b>{{note.benchName}}</b>
               </div>
               <br/>
-              <div id="newtonian_fac">
-              </div>
-              <div id="non_newtonian_fac">
-              </div>
-              <div id="visco_fas">
-              </div>
-              <h2 id="sedimentation_chart" align="center"></h2>
-              <div id="curve_chart" style="width: 900px; height: 500px">
-              </div>
+              <table class="result_table">
+                <caption>{{note.tableCaption}}</caption>
+                <tr class="mycoolheader">
+                  <td ng-repeat="col in note.data.cols">{{col.label}}</td>
+                </tr>
+                <tr class="mycoolrow" ng-repeat="row in note.data.rows">
+                  <td ng-repeat="col in row.c">{{col.v}}</td>
+                </tr>
+              </table>
               <br/>
-              <script src="js/noteshandler.js"></script>
-
-              </div>
-
-              <br/>
-
             </div>
 
             <!-- FOOTER -->
