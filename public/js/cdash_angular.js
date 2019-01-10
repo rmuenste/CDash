@@ -2,8 +2,15 @@ var CDash = angular
 .module('CDash', [
     'ui.sortable',
     'ui.bootstrap',
-    'ngAnimate'
-    ]);
+    'ngAnimate',
+    'googlechart'
+  ]).value('googleChartApiConfig', {
+    version: '1',
+    optionalSettings: {
+      packages: ['corechart'],
+      language: 'ja'
+    }  
+  });
 
 // Keep subprojects with missing fields at the bottom of the list.
 // Shared between index.html & viewSubProjects.html

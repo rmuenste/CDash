@@ -78,6 +78,7 @@
              'node_modules/as-jqplot/dist/plugins/jqplot.dateAxisRenderer.js',
              'node_modules/as-jqplot/dist/plugins/jqplot.highlighter.js',
              'public/js/angular-1.4.7.min.js',
+             'public/js/ng-google-chart.js',
              'public/js/angular-animate.min.js',
              'public/js/angular-ui-sortable.min.js',
              'public/js/ui-bootstrap-tpls-0.14.2.min.js'])
