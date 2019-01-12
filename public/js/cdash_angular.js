@@ -4,5 +4,12 @@ var CDash = angular
     'ngAnimate',
     'ngFileUpload',
     'ui.sortable',
-    'ui.bootstrap'
-    ]);
+    'ui.bootstrap',
+    'googlechart'
+    ]).value('googleChartApiConfig', {
+    version: '1',
+    optionalSettings: {
+      packages: ['corechart'],
+      language: 'ja'
+    }
+  });

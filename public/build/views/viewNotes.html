@@ -7,11 +7,13 @@
     <link rel="shortcut icon" href="favicon.ico" />
     <link rel="stylesheet" type="text/css" ng-href="build/css/{{cssfile}}_2.6.0.css" />
     <link rel="stylesheet" href="css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="css/viewnotes.css" />
     <script src="js/CDash_2.6.0.min.js"></script>
+    <script src="js/controllers/myViewNotes.js"></script>
     <title>{{cdash.title || "CDash : View notes"}}</title>
   </head>
 
-  <body bgcolor="#ffffff" ng-controller="ViewNotesController">
+  <body bgcolor="#ffffff" ng-controller="myViewNotesController">
     <div ng-if="cdash.requirelogin == 1" ng-include="'login.php'"></div>
 
     <ng-include ng-if="cdash.requirelogin != 1" src="cdash.header || 'build/views/partials/header_2.6.0.html'"></ng-include>
@@ -53,6 +55,42 @@
       <br/>
       <br/>
 
+      <div class='tables-container'>
+        <!-- Tables -->
+        <div ng-repeat="note in myNotes">
+
+          <!-- Tables
+                <div class="title-divider"  id="note{{$index}}">
+                  <b>{{note.DashBoardVisualization.name}}</b>
+                </div>
+              -->
+          <br />
+          <table class="result_table">
+            <caption>{{note.DashBoardVisualization.DashBoardTable.Tables[0].tableCaption}}</caption>
+            <tr class="mycoolheader">
+              <td ng-repeat="col in note.DashBoardVisualization.DashBoardTable.Tables[0].data.cols">{{col.label}}</td>
+            </tr>
+            <tr class="mycoolrow" ng-repeat="row in note.DashBoardVisualization.DashBoardTable.Tables[0].data.rows">
+              <td ng-repeat="col in row.c">{{col.v}}</td>
+            </tr>
+          </table>
+          <br />
+        </div>
+
+      </div>
+
+      <div ng-if="hasDiagramms">
+        works
+        <div dir="rtl" google-chart chart="chart" style="{{chart.cssStyle}}" on-ready="chartReady()"></div>
+
+
+        <!-- FOOTER
+        <div class='tables-container'>
+          diagram here
+        </div>
+       -->
+      </div>
+
       <div ng-repeat="note in cdash.notes">
         <div class="title-divider"  id="note{{$index}}">
           <b>{{note.time}} -- {{note.name}}</b>
@@ -61,6 +99,7 @@
         <pre>{{note.text}}</pre>
         <br/>
       </div>
+
       <br/>
     </div>
 
