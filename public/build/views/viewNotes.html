@@ -1,109 +1,111 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html lang="en" ng-app="CDash">
-  <head ng-controller="HeadController">
-    <meta charset="UTF-8">
-    <meta name="robots" content="noindex,nofollow" />
-    <link rel="shortcut icon" href="favicon.ico" />
-    <link rel="stylesheet" type="text/css" ng-href="build/css/{{cssfile}}_2.6.0.css" />
-    <link rel="stylesheet" href="css/bootstrap.min.css"/>
-    <link rel="stylesheet" href="css/viewnotes.css" />
-    <script src="js/CDash_2.6.0.min.js"></script>
-    <script src="js/controllers/myViewNotes.js"></script>
-    <title>{{cdash.title || "CDash : View notes"}}</title>
-  </head>
 
-  <body bgcolor="#ffffff" ng-controller="myViewNotesController">
-    <div ng-if="cdash.requirelogin == 1" ng-include="'login.php'"></div>
+<head ng-controller="HeadController">
+  <meta charset="UTF-8">
+  <meta name="robots" content="noindex,nofollow" />
+  <link rel="shortcut icon" href="favicon.ico" />
+  <link rel="stylesheet" type="text/css" ng-href="build/css/{{cssfile}}_2.6.0.css" />
+  <link rel="stylesheet" href="css/bootstrap.min.css" />
+  <link rel="stylesheet" href="css/viewnotes.css" />
+  <script src="js/CDash_2.6.0.min.js"></script>
+  <script src="js/controllers/myViewNotes.js"></script>
+  <title>{{cdash.title || "CDash : View notes"}}</title>
+</head>
 
-    <ng-include ng-if="cdash.requirelogin != 1" src="cdash.header || 'build/views/partials/header_2.6.0.html'"></ng-include>
+<body bgcolor="#ffffff" ng-controller="myViewNotesController">
+  <div ng-if="cdash.requirelogin == 1" ng-include="'login.php'"></div>
 
-    <div ng-if="cdash.requirelogin != 1 && !cdash.error">
-      <br/>
+  <ng-include ng-if="cdash.requirelogin != 1" src="cdash.header || 'build/views/partials/header_2.6.0.html'"></ng-include>
 
-      <table border="0">
-        <tr>
-          <td align="left">
-            <b>Site: </b>
-            <a href="viewSite.php?siteid={{cdash.build.siteid}}">{{cdash.build.site}}</a>
-          </td>
-        <tr>
+  <div ng-if="cdash.requirelogin != 1 && !cdash.error">
+    <br />
 
-        <tr>
-          <td align="left">
-            <b>Build Name: </b>
-            <a href="buildSummary.php?buildid={{cdash.build.buildid}}">{{cdash.build.buildname}}</a>
-          </td>
-        </tr>
+    <table border="0">
+      <tr>
+        <td align="left">
+          <b>Site: </b>
+          <a href="viewSite.php?siteid={{cdash.build.siteid}}">{{cdash.build.site}}</a>
+        </td>
+      <tr>
 
-        <tr>
-          <td align="left">
-            <b>Stamp: </b>
-            {{cdash.build.stamp}}
-          </td>
-        <tr>
-      </table>
+      <tr>
+        <td align="left">
+          <b>Build Name: </b>
+          <a href="buildSummary.php?buildid={{cdash.build.buildid}}">{{cdash.build.buildname}}</a>
+        </td>
+      </tr>
 
-      <br/>
-      <a href="" ng-repeat="note in cdash.notes" ng-click="gotoNote($index)">
-        <img src="img/document.png" alt="Notes" border="0" align="top"/>
-        {{note.time}} -- {{note.name}}
-        <br/>
-      </a>
+      <tr>
+        <td align="left">
+          <b>Stamp: </b>
+          {{cdash.build.stamp}}
+        </td>
+      <tr>
+    </table>
 
-      <br/>
-      <br/>
-      <br/>
+    <br />
+    <a href="" ng-repeat="note in cdash.notes" ng-click="gotoNote($index)">
+      <img src="img/document.png" alt="Notes" border="0" align="top" />
+      {{note.time}} -- {{note.name}}
+      <br />
+    </a>
 
-      <div class='tables-container'>
-        <!-- Tables -->
-        <div ng-repeat="note in myNotes">
+    <br />
+    <br />
+    <br />
 
-          <!-- Tables
+    <div class='tables-container'>
+      <!-- Tables -->
+      <div ng-repeat="note in myNotes">
+
+        <!-- Tables
                 <div class="title-divider"  id="note{{$index}}">
                   <b>{{note.DashBoardVisualization.name}}</b>
                 </div>
               -->
-          <br />
-          <table class="result_table">
-            <caption>{{note.DashBoardVisualization.DashBoardTable.Tables[0].tableCaption}}</caption>
-            <tr class="mycoolheader">
-              <td ng-repeat="col in note.DashBoardVisualization.DashBoardTable.Tables[0].data.cols">{{col.label}}</td>
+        <br />
+        <div ng-repeat="table in note.DashBoardVisualization.DashBoardTable.Tables">
+          <table class="table--result">
+            <caption>{{table.tableCaption}}</caption>
+            <tr class="table--result__header">
+              <td ng-repeat="col in table.data.cols">{{col.label}}</td>
             </tr>
-            <tr class="mycoolrow" ng-repeat="row in note.DashBoardVisualization.DashBoardTable.Tables[0].data.rows">
+            <tr class="table--result__row" ng-repeat="row in table.data.rows">
               <td ng-repeat="col in row.c">{{col.v}}</td>
             </tr>
           </table>
-          <br />
         </div>
-
+        <br />
       </div>
 
-      <div ng-if="hasDiagramms">
-        works
-        <div dir="rtl" google-chart chart="chart" style="{{chart.cssStyle}}" on-ready="chartReady()"></div>
-
-
-        <!-- FOOTER
-        <div class='tables-container'>
-          diagram here
-        </div>
-       -->
-      </div>
-
-      <div ng-repeat="note in cdash.notes">
-        <div class="title-divider"  id="note{{$index}}">
-          <b>{{note.time}} -- {{note.name}}</b>
-        </div>
-        <br/>
-        <pre>{{note.text}}</pre>
-        <br/>
-      </div>
-
-      <br/>
     </div>
 
-    <!-- FOOTER -->
-    <ng-include ng-if="cdash.requirelogin != 1" src="cdash.footer || 'build/views/partials/footer_2.6.0.html'"></ng-include>
-  </body>
+    <div ng-repeat="note in myNotes">
+      <div ng-if="hasDiagramms">
+        <div ng-repeat="chart in note.myDiagramms">
+
+          <div dir="rtl" google-chart chart="chart" style="{{chart.cssStyle}}" on-ready="chartReady()"></div>
+
+        </div>
+      </div>
+    </div>
+
+    <div ng-repeat="note in cdash.notes">
+      <div class="title-divider" id="note{{$index}}">
+        <b>{{note.time}} -- {{note.name}}</b>
+      </div>
+      <br />
+      <pre>{{note.text}}</pre>
+      <br />
+    </div>
+
+    <br />
+  </div>
+
+  <!-- FOOTER -->
+  <ng-include ng-if="cdash.requirelogin != 1" src="cdash.footer || 'build/views/partials/footer_2.6.0.html'"></ng-include>
+</body>
+
 </html>

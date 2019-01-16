@@ -4,7 +4,7 @@
   }
 
   /* Set the style for result_table class elements  */
-  .result_table {
+  .table--result {
     background-color: #efefef;
     padding: 3px;
     text-align: center;
@@ -14,7 +14,7 @@
   }
 
   /* This is used as header for the table  */
-  .mycoolheader {
+  .table--result__header {
     background-color: #3652cf;
     color: #ffffff;
     font-weight: bold;
@@ -23,7 +23,7 @@
   }
 
   /* Set the table row style  */
-  .mycoolrow {
+  .table--result__row {
     background-color: #ffffff;
   }
 
@@ -39,7 +39,6 @@
   }
 
   .tables-container {
-    background-color: #5995DA;
     display: flex;
     justify-content: space-around;
     flex-wrap: wrap;

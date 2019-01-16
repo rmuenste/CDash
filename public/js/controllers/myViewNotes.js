@@ -19,12 +19,13 @@ function myViewNotesController($scope, $rootScope, $http, $location, anchors, ap
     for(var i=0; i < $scope.cdash.notes.length; i++) {
 
         var myNote =  JSON.parse($scope.cdash.notes[i].text);
+        myNote.myDiagramms = [];
         $scope.myNotes.push(myNote);
 
     }
-    console.log("scope note data")
+
+    console.log("My notes")
     console.log($scope.myNotes);
-    console.log($scope.myNotes[0].DashBoardVisualization);
 
     for(let j=0; j < $scope.myNotes.length; j++) {
 
@@ -34,8 +35,8 @@ function myViewNotesController($scope, $rootScope, $http, $location, anchors, ap
         console.log("Has table property");
 
         if (Array.isArray(
-            $scope.myNotes[0].DashBoardVisualization.DashBoardTable.Tables) ||
-            $scope.myNotes[0].DashBoardVisualization.DashBoardTable.Tables.length) {
+            $scope.myNotes[j].DashBoardVisualization.DashBoardTable.Tables) ||
+            $scope.myNotes[j].DashBoardVisualization.DashBoardTable.Tables.length) {
 
            // array does not exist, is not an array, or is empty
            console.log("Array does exist and is not empty");
@@ -50,10 +51,10 @@ function myViewNotesController($scope, $rootScope, $http, $location, anchors, ap
         console.log("Has diagramm property");
 
         if (Array.isArray(
-            $scope.myNotes[0].DashBoardVisualization.DashBoardDiagramm.Diagramms) ||
-            $scope.myNotes[0].DashBoardVisualization.DashBoardDiagramm.Diagramms.length) {
+            $scope.myNotes[j].DashBoardVisualization.DashBoardDiagramm.Diagramms) ||
+            $scope.myNotes[j].DashBoardVisualization.DashBoardDiagramm.Diagramms.length) {
 
-              myData = {
+            let myData = {
                 "type": "LineChart",
                 "displayed": false,
                 "cssStyle": "height:600px;width: 100%",
@@ -111,7 +112,7 @@ function myViewNotesController($scope, $rootScope, $http, $location, anchors, ap
                   },
                   "displayExactValues": false,
                   "vAxis": {
-                    "title": "No of Bookings",
+                    "title": "Z-Velocity",
                     "gridlines": {
                       "count": 10
                     }
@@ -124,21 +125,21 @@ function myViewNotesController($scope, $rootScope, $http, $location, anchors, ap
 
              console.log(myData.data);
 
-
-             $scope.chart = myData;
-
              // array does not exist, is not an array, or is empty
              console.log("Diagramm Array does exist and is not empty");
              $scope.hasDiagramms = true;
              console.log("Chart Data0");
              console.log(myData.data);
-             $scope.chart.data.cols = $scope.myNotes[0].DashBoardVisualization.DashBoardDiagramm.Diagramms[0].data.cols;
-             $scope.chart.data.rows = $scope.myNotes[0].DashBoardVisualization.DashBoardDiagramm.Diagramms[0].data.rows;
-             //console.log($scope.myNotes[0].DashBoardVisualization.DashBoardDiagramm.Diagramms[0].data);
+
+             myData.data.cols = $scope.myNotes[j].DashBoardVisualization.DashBoardDiagramm.Diagramms[0].data.cols;
+             myData.data.rows = $scope.myNotes[j].DashBoardVisualization.DashBoardDiagramm.Diagramms[0].data.rows;
+
+             $scope.myNotes[j].myDiagramms.push(myData);
 
           }
         }
-
+        console.log("End data");
+        console.log($scope.myNotes);
       }
 
     };
